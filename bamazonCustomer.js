@@ -22,7 +22,7 @@ connection.connect(function (err) {
     queryAllProducts();
     start();
 });
-
+//prints items from database onto the screen
 function queryAllProducts() {
     connection.query("SELECT * FROM products", function (err, res) {
         for (var i = 0; i < res.length; i++) {
@@ -30,6 +30,7 @@ function queryAllProducts() {
         }
     });
 }
+//function prompts the user for product ID# and quantity
 function start() {
     inquirer
         .prompt([
@@ -58,6 +59,7 @@ function start() {
 
             }
         ])
+        //function to compare product id and quantity given to what's actually in stock
         .then(function (answer) {
             connection.query(`SELECT * FROM products WHERE id =` + answer.productId, function (err, res) {
                 if (err) throw err;
@@ -67,6 +69,7 @@ function start() {
                     sellInventory(res, answer);
                 }
                 else {
+                    //if purchase was not successful tells user the quantity remaining of a specific product
                     console.log(`
                     Insufficient Quantity. We only have ${res[0].stock_quantity} ${res[0].product_name} in stock.`);
 
@@ -75,7 +78,7 @@ function start() {
         })
 }
 
-// 
+// if purchase was successful and give the user the name of the product purchased and total cost
 function sellInventory(res, answer) {
     console.log(`
     Thank you for shopping at Bamazon. You've purchased ${answer.quantity} ${res[0].product_name}(s). Your total is $${totalCost}`)
@@ -88,9 +91,7 @@ function sellInventory(res, answer) {
                 id: answer.id
             }
         ]);
-    endConnection();
-};
-
-function endConnection() {
-    connection.end();
-}
+        //terminating connection
+        connection.end(function(err) {
+          });
+        }
