@@ -59,7 +59,7 @@ function start() {
             }
         ])
         .then(function (answer) {
-            connection.query(`SELECT * FROM products WHERE productId = ${answer.productId}`, function (err, res) {
+            connection.query(`SELECT * FROM products WHERE id =` + answer.productId, function (err, res) {
                 if (err) throw err;
 
                 if (parseInt(res[0].stock_quantity) >= parseInt(answer.quantity)) {
@@ -68,8 +68,8 @@ function start() {
                 }
                 else {
                     console.log(`
-Insufficient Quantity. We only have ${res[0].stock_quantity} ${res[0].product_name} in stock.`);
-                    userPrompt();
+                    Insufficient Quantity. We only have ${res[0].stock_quantity} ${res[0].product_name} in stock.`);
+
                 }
             })
         })
@@ -78,7 +78,7 @@ Insufficient Quantity. We only have ${res[0].stock_quantity} ${res[0].product_na
 // 
 function sellInventory(res, answer) {
     console.log(`
-Congratulations. You've purchased ${answer.quantity} ${res[0].product_name}(s). Your total is $${totalCost}`)
+    Thank you for shopping at Bamazon. You've purchased ${answer.quantity} ${res[0].product_name}(s). Your total is $${totalCost}`)
     connection.query(`UPDATE products SET ? WHERE ?`,
         [
             {
