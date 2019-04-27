@@ -26,9 +26,6 @@ INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ("Amythest Crystal Necklace", "jewelry", 17.50, 2);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Amythest Crystal Necklace", "jewelry", 17.50, 2);
-
-INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ("14K White Gold Hoop Earrings", "jewelry", 97.50, 5);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
